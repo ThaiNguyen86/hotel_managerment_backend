@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Local",
+        "coefficient": 1
+    },
+    {
+        "name": "Foreign",
+        "coefficient": 1.25
+    }
+]

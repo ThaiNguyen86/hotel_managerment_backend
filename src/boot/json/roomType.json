@@ -1,0 +1,20 @@
+[
+    {
+        "name": "VIP1",
+        "maxOccupancy": 3,
+        "surchargeRate" : 0.25,
+        "price": 150000
+    },
+    {
+        "name": "VIP2",
+        "maxOccupancy": 3,
+        "surchargeRate" : 0.25,
+        "price": 170000
+    },
+    {
+        "name": "VIP3",
+        "maxOccupancy": 3,
+        "surchargeRate" : 0.25,
+        "price": 200000
+    }
+]

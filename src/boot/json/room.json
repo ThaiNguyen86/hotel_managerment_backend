@@ -1,0 +1,98 @@
+[
+    {
+        "roomName": "P101",
+        "notes": "Floor 1"
+    },
+    {
+        "roomName": "P104",
+        "notes": "Floor 1"
+    },
+    {
+        "roomName": "P103",
+        "notes": "Floor 1"
+    },
+    {
+        "roomName": "P102",
+        "notes": "Floor 1"
+    },
+    {
+        "roomName": "P201",
+        "notes": "Floor 2"
+    },
+    {
+        "roomName": "P204",
+        "notes": "Floor 2"
+    },
+    {
+        "roomName": "P203",
+        "notes": "Floor 2"
+    },
+    {
+        "roomName": "P202",
+        "notes": "Floor 2"
+    },
+    {
+        "roomName": "P301",
+        "notes": "Floor 3"
+    },
+    {
+        "roomName": "P304",
+        "notes": "Floor 3"
+    },
+    {
+        "roomName": "P303",
+        "notes": "Floor 3"
+    },
+    {
+        "roomName": "P302",
+        "notes": "Floor 3"
+    },
+    {
+        "roomName": "P401",
+        "notes": "Floor 4"
+    },
+    {
+        "roomName": "P404",
+        "notes": "Floor 4"
+    },
+    {
+        "roomName": "P403",
+        "notes": "Floor 4"
+    },
+    {
+        "roomName": "P402",
+        "notes": "Floor 4"
+    },
+    {
+        "roomName": "P501",
+        "notes": "Floor 5"
+    },
+    {
+        "roomName": "P504",
+        "notes": "Floor 5"
+    },
+    {
+        "roomName": "P503",
+        "notes": "Floor 5"
+    },
+    {
+        "roomName": "P502",
+        "notes": "Floor 5"
+    },
+    {
+        "roomName": "P601",
+        "notes": "Floor 6"
+    },
+    {
+        "roomName": "P604",
+        "notes": "Floor 6"
+    },
+    {
+        "roomName": "P603",
+        "notes": "Floor 6"
+    },
+    {
+        "roomName": "P602",
+        "notes": "Floor 6"
+    }
+]
