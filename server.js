@@ -19,15 +19,9 @@ connectDB();
 
 const app = express();
 
-// ✅ CORS config: chỉ cho phép FE domain
-const corsOptions = {
-    origin: "https://hotel-app-thanhthai.project3cloudinus.shop",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Authorization", "Content-Type", "X-Requested-With"],
-    credentials: true
-};
-app.use(cors(corsOptions));
-
+app.use(cors({
+  origin: "*"
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
