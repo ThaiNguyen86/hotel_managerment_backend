@@ -4,6 +4,7 @@ const RoomType = require('../models/RoomType')
 const Room = require('../models/Room')
 const CustomerType = require('../models/CustomerType')
 const mockRoomTypeAndRoomData = async ()=>{
+
     try{
 
         if(await RoomType.countDocuments() == 0)
