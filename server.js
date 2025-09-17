@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./src/configs/database');
 
-
 // Import routes
 const userRoutes = require('./src/routes/userRoutes');
 const roomRoutes = require('./src/routes/roomRoutes');
@@ -11,16 +10,24 @@ const roomTypeRoutes = require('./src/routes/roomTypeRoutes');
 const bookingRoutes = require('./src/routes/bookingRoutes');
 const customerRoutes = require('./src/routes/customerRoutes');
 const customerTypeRoutes = require('./src/routes/customerTypeRoutes');
-const invoiceRoutes = require('./src/routes/invoiceRoutes')
-const reportRoutes = require('./src/routes/reportRoutes')
-const roleRoutes = require('./src/routes/roleRoutes')
+const invoiceRoutes = require('./src/routes/invoiceRoutes');
+const reportRoutes = require('./src/routes/reportRoutes');
+const roleRoutes = require('./src/routes/roleRoutes');
+
 // Connect to database
 connectDB();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// ✅ CORS config: chỉ cho phép FE domain
+const corsOptions = {
+    origin: "https://hotel-app-thanhthai.project3cloudinus.shop",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Authorization", "Content-Type", "X-Requested-With"],
+    credentials: true
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,9 +38,10 @@ app.use('/api/room-types', roomTypeRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/customer-types', customerTypeRoutes);
-app.use('/api/invoices',invoiceRoutes)
-app.use('/api/reports',reportRoutes)
-app.use('/api/roles',roleRoutes)
+app.use('/api/invoices', invoiceRoutes);
+app.use('/api/reports', reportRoutes);
+app.use('/api/roles', roleRoutes);
+
 // Base route
 app.get('/', (req, res) => {
     res.json({ message: 'Welcome to Hotel Management API' });
@@ -51,31 +59,18 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
     console.error(err.stack);
 
-    // MongoDB Error
     if (err.name === 'MongoError' || err.name === 'MongoServerError') {
-        return res.status(400).json({
-            success: false,
-            error: 'Database operation failed'
-        });
+        return res.status(400).json({ success: false, error: 'Database operation failed' });
     }
 
-    // Validation Error
     if (err.name === 'ValidationError') {
-        return res.status(400).json({
-            success: false,
-            error: err.message
-        });
+        return res.status(400).json({ success: false, error: err.message });
     }
 
-    // JWT Error
     if (err.name === 'JsonWebTokenError') {
-        return res.status(401).json({
-            success: false,
-            error: 'Invalid token'
-        });
+        return res.status(401).json({ success: false, error: 'Invalid token' });
     }
 
-    // Default Error
     res.status(err.status || 500).json({
         success: false,
         error: err.message || 'Internal server error'
@@ -88,7 +83,6 @@ const server = app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-// Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
     console.log('UNHANDLED REJECTION! 💥 Shutting down...');
     console.error(err);
@@ -96,3 +90,4 @@ process.on('unhandledRejection', (err) => {
         process.exit(1);
     });
 });
+
