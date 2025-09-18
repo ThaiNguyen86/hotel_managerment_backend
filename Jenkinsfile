@@ -30,12 +30,13 @@ pipeline {
         }
         stage('Deploy Container') {
             steps {
-                sh '''
-                  docker pull ${DOCKER_IMAGE}:${BUILD_NUMBER}
-                  docker stop hotel_backend || true
-                  docker rm hotel_backend || true
-                  docker run -d --name hotel_backend -p 3002:4000 ${DOCKER_IMAGE}:${BUILD_NUMBER}
-                '''
+                withCredentials([file(credentialsId: 'HOTEL_BACKEND_ENV', variable: 'ENV_FILE')]) {
+                    sh '''
+                        docker stop hotel-backend || true
+                        docker rm hotel-backend || true
+                        docker run -d --name hotel-backend -p 3002:4000 --env-file $ENV_FILE ${DOCKER_IMAGE}:${BUILD_NUMBER}
+                    '''
+                }
             }
         }
     }
