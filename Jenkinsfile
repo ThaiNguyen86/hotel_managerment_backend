@@ -41,3 +41,5 @@ pipeline {
         }
     }
 }
+
+// File: hotel-managerment-frontend/Jenkinsfile
