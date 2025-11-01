@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./src/configs/database');
+const client = require('prom-client');
 
 // Import routes
 const userRoutes = require('./src/routes/userRoutes');
@@ -14,10 +15,36 @@ const invoiceRoutes = require('./src/routes/invoiceRoutes');
 const reportRoutes = require('./src/routes/reportRoutes');
 const roleRoutes = require('./src/routes/roleRoutes');
 
-// Connect to database
+// Connect DB
 connectDB();
 
 const app = express();
+
+// --- Prometheus metrics ---
+const register = new client.Registry();
+client.collectDefaultMetrics({ register });
+const httpRequestCounter = new client.Counter({
+  name: 'http_requests_total',
+  help: 'Total number of HTTP requests',
+  labelNames: ['method', 'route', 'status'],
+});
+register.registerMetric(httpRequestCounter);
+
+app.use((req, res, next) => {
+  res.on('finish', () => {
+    httpRequestCounter.inc({ method: req.method, route: req.path, status: res.statusCode });
+  });
+  next();
+});
+
+app.get('/metrics', async (req, res) => {
+  try {
+    res.set('Content-Type', register.contentType);
+    res.end(await register.metrics());
+  } catch (err) {
+    res.status(500).end(err);
+  }
+});
 
 app.use(cors({
   origin: "*"
